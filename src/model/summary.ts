@@ -14,7 +14,7 @@ class CSummary {
     return this.invoices.reduce((sum, invoice) => sum + invoice.total, 0);
   }
 
-  report(): Array<{ name: string; qty: number }> {
+  report(): Array<{ name: string; qty: number; color: string }> {
     let list: Array<CSummaryList> = firebase.Menu.products.map((item) => {
       return { main: item.name, qty: 0, sub: {} };
     });
@@ -37,13 +37,13 @@ class CSummary {
       });
     });
 
-    let rows: Array<{ name: string; qty: number }> = [];
+    let rows: Array<{ name: string; qty: number, color: string }> = [];
 
     list.forEach((item) => {
-      rows.push({ name: item.main, qty: item.qty });
+      rows.push({ name: item.main, qty: item.qty, color: "black" });
 
       Object.entries(item.sub).forEach((sub) => {
-        rows.push({ name: "▹ 選項： [" + sub[0] + "]", qty: sub[1] });
+        rows.push({ name: "▹ 選項： [" + sub[0] + "]", qty: sub[1], color: "gray" });
       });
     });
 
