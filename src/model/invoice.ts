@@ -109,12 +109,12 @@ class CInvoice {
   }
 
   get total(): number {
-    return this.orders.reduce((sum, order) => sum + order.subtotal, 0);
+    return this.orders.reduce((sum, order) => sum + order.subtotal, 0) + this.discount;
   }
 
   get finalpayment(): number {
     if (this.info !== undefined) {
-      return this.total + this.discount - this.info.deposit;
+      return this.total - this.info.deposit;
     }
 
     return this.total + this.discount;
